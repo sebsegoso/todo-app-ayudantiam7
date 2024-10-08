@@ -1,5 +1,9 @@
 # todo-app-ayudantiam7
 
+[DEMO DEL PROYECTO AQUÍ](https://todo-app-ayudantiam7.web.app/)
+
+### No olvides agregar tu configuración de firebase en `@/firebase.js`
+---
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
