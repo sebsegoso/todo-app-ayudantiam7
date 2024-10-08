@@ -1,5 +1,14 @@
 import { $auth, $db } from '@/firebase'
-import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where
+} from 'firebase/firestore'
 
 const TODOS_COLLECTION = 'todos'
 
@@ -53,6 +62,16 @@ export class ToDosService {
       await deleteDoc(todoRef)
     } catch (error) {
       console.error('Error al eliminar todo', error)
+    }
+  }
+
+  // editar una tarea
+  async updateToDo(id, updatedFields = {}) {
+    try {
+      const todoRef = doc($db, TODOS_COLLECTION, id)
+      await updateDoc(todoRef, updatedFields)
+    } catch (error) {
+      console.error('Error al actualizar todo', error)
     }
   }
 }

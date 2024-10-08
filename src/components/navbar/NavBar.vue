@@ -5,17 +5,23 @@ import LogoutBtn from '@/components/auth/LogoutBtn.vue'
 
 import { useAuthStore } from '@/stores/authStore'
 import { computed } from 'vue'
+import { useTodosStore } from '@/stores/todosStore'
 
 const authStore = useAuthStore()
+const todosStore = useTodosStore()
 
 const user = computed(() => authStore.user)
 </script>
 
 <template>
   <nav>
-    <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-    <RouterLink v-if="user" :to="{ name: 'pending' }">Tareas pendientes</RouterLink>
-    <RouterLink v-if="user" :to="{ name: 'completed' }">Tareas completadas</RouterLink>
+    <RouterLink :to="{ name: 'home' }">Home ({{ todosStore.todos.length || 0 }})</RouterLink>
+    <RouterLink v-if="user" :to="{ name: 'pending' }"
+      >Tareas pendientes ({{ todosStore.pendingTodos.length || 0 }})</RouterLink
+    >
+    <RouterLink v-if="user" :to="{ name: 'completed' }"
+      >Tareas completadas ({{ todosStore.completedTodos.length || 0 }})</RouterLink
+    >
     <LogoutBtn v-if="user" />
     <LoginWithGoogleBtn v-else />
   </nav>

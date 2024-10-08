@@ -1,11 +1,26 @@
 <script setup>
 import ToDoItem from '@/components/todos/ToDoItem.vue'
 import { useTodosStore } from '@/stores/todosStore'
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 const todosStore = useTodosStore()
 
-const { title } = defineProps({
-  title: String
+const { title, filter } = defineProps({
+  title: String,
+  filter: {
+    type: String,
+    default: 'all'
+  }
+})
+
+const filteredTodos = computed(() => {
+  switch (filter) {
+    case 'completed':
+      return todosStore.completedTodos
+    case 'pending':
+      return todosStore.pendingTodos
+    default:
+      return todosStore.todos
+  }
 })
 
 onMounted(async () => {
@@ -17,7 +32,7 @@ onMounted(async () => {
   <div>
     <h2>{{ title }}</h2>
     <ul>
-      <li v-for="todo in todosStore.todos" :key="todo.id">
+      <li v-for="todo in filteredTodos" :key="todo.id">
         <ToDoItem :todo="todo" />
       </li>
     </ul>

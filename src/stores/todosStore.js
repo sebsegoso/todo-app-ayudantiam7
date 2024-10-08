@@ -23,11 +23,25 @@ export const useTodosStore = defineStore('todos', () => {
     await fetchToDos()
   }
 
+  // update todo
+  async function updateToDo(id, updatedFields) {
+    await service.updateToDo(id, updatedFields)
+    await fetchToDos()
+  }
   // delete todo
   async function deleteToDo(id) {
     await service.deleteToDo(id)
     await fetchToDos()
   }
 
-  return { todos, addToDo, fetchToDos, loading, completedTodos, pendingTodos, deleteToDo }
+  return {
+    todos,
+    addToDo,
+    fetchToDos,
+    loading,
+    completedTodos,
+    pendingTodos,
+    deleteToDo,
+    updateToDo
+  }
 })
